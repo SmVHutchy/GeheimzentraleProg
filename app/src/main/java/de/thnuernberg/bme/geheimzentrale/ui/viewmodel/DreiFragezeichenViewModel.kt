@@ -99,6 +99,13 @@ class DreiFragezeichenViewModel @Inject constructor(
         }
     }
 
+    fun toggleFavorite(episodeId: Int) {
+        viewModelScope.launch {
+            val current = _episodeStatuses.value[episodeId]?.isFavorite ?: false
+            repository.setEpisodeFavorite(episodeId, !current)
+        }
+    }
+
     fun getEpisodeStatus(episodeId: Int): EpisodeStatus? {
         return _episodeStatuses.value[episodeId]
     }
@@ -117,6 +124,16 @@ class DreiFragezeichenViewModel @Inject constructor(
 
         viewModelScope.launch {
             repository.getInProgressEpisodes().collect { statuses ->
+                val newMap = _episodeStatuses.value.toMutableMap()
+                statuses.forEach { status ->
+                    newMap[status.episodeId] = status
+                }
+                _episodeStatuses.value = newMap
+            }
+        }
+
+        viewModelScope.launch {
+            repository.getFavoriteEpisodes().collect { statuses ->
                 val newMap = _episodeStatuses.value.toMutableMap()
                 statuses.forEach { status ->
                     newMap[status.episodeId] = status

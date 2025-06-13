@@ -23,6 +23,7 @@ fun EpisodenListeScreen(
     onEpisodeClick: (Episode) -> Unit
 ) {
     val episoden by viewModel.episoden.collectAsState()
+    val statuses by viewModel.episodeStatuses.collectAsState()
     
     Scaffold(
         topBar = {
@@ -45,7 +46,9 @@ fun EpisodenListeScreen(
             items(episoden) { episode ->
                 EpisodeCard(
                     episode = episode,
-                    onEpisodeClick = onEpisodeClick
+                    episodeStatus = statuses[episode.nummer],
+                    onEpisodeClick = onEpisodeClick,
+                    onToggleFavorite = { viewModel.toggleFavorite(it) }
                 )
             }
         }

@@ -29,7 +29,8 @@ data class EpisodeStatus(
     val episodeId: Int,
     val isListened: Boolean = false,
     val isInProgress: Boolean = false,
+    val isFavorite: Boolean = false,
     val progress: Int = 0,
     val tags: List<String> = emptyList(),
     val lastUpdated: Long = System.currentTimeMillis()
-) 
+)

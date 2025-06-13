@@ -8,6 +8,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.thnuernberg.bme.geheimzentrale.data.api.DreiFragezeichenApi
+import de.thnuernberg.bme.geheimzentrale.data.local.PlaylistDao
+import de.thnuernberg.bme.geheimzentrale.data.repository.DreiFragezeichenRepository
 import javax.inject.Singleton
 
 @Module
@@ -30,4 +32,11 @@ object AppModule {
     fun provideDreiFragezeichenApi(
         jsonReader: LocalJsonReader
     ): DreiFragezeichenApi = LocalDreiFragezeichenApi(jsonReader)
-} 
+
+    @Provides
+    @Singleton
+    fun provideDreiFragezeichenRepository(
+        playlistDao: PlaylistDao,
+        api: DreiFragezeichenApi
+    ): DreiFragezeichenRepository = DreiFragezeichenRepository(playlistDao, api)
+}
