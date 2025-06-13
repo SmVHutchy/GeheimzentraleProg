@@ -96,6 +96,9 @@ dependencies {
     
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
+
+    // JSON
+    implementation("com.google.code.gson:gson:2.10.1")
     
     // Testing
     testImplementation("junit:junit:4.13.2")
