@@ -1,0 +1,39 @@
+{
+  "dbInfo": {
+    "version": "1",
+    "lastModified": "2024-01-01T00:00:00Z"
+  },
+  "serie": [
+    {
+      "nummer": 1,
+      "titel": "Die Probe",
+      "autor": "Testautor",
+      "hörspielskriptautor": "Skript",
+      "gesamtbeschreibung": "GB",
+      "beschreibung": "B",
+      "veröffentlichungsdatum": "2020-02-20",
+      "kapitel": [],
+      "sprechrollen": [
+        {"rolle": "A", "sprecher": "S1"},
+        {"rolle": "B", "sprecher": "S2"}
+      ],
+      "links": {
+        "json": "",
+        "ffmetadata": "",
+        "cover": "cover.png",
+        "cover_itunes": "it.png",
+        "cover_kosmos": "ko.png",
+        "dreifragezeichen": ""
+      },
+      "ids": {"dreimetadaten": 1},
+      "medien": [
+        {
+          "tracks": [
+            {"titel": "t1", "start": 0, "end": 1000},
+            {"titel": "t2", "start": 1000, "end": 3000}
+          ]
+        }
+      ]
+    }
+  ]
+}
