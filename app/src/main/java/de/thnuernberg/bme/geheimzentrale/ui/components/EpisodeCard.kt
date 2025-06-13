@@ -32,6 +32,7 @@ fun EpisodeCard(
     onAddToPlaylist: (Int, Long) -> Unit = { _, _ -> },
     onMarkAsListened: (Int) -> Unit = { _ -> },
     onAddTag: (Int, String) -> Unit = { _, _ -> },
+    onToggleFavorite: (Int) -> Unit = { _ -> },
     modifier: Modifier = Modifier
 ) {
     var showPlaylistMenu by remember { mutableStateOf(false) }
@@ -91,6 +92,14 @@ fun EpisodeCard(
             .padding(top = 8.dp),
         horizontalArrangement = Arrangement.End
     ) {
+        // Favoriten-Button
+        IconButton(onClick = { onToggleFavorite(episode.nummer) }) {
+            Icon(
+                imageVector = if (episodeStatus?.isFavorite == true) Icons.Default.Star else Icons.Default.StarOutline,
+                contentDescription = if (episodeStatus?.isFavorite == true) "Favorit entfernen" else "Als Favorit markieren"
+            )
+        }
+
         // Playlist-Menü
         IconButton(
             onClick = { showPlaylistMenu = true }

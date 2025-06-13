@@ -1,5 +1,6 @@
 package de.thnuernberg.bme.geheimzentrale.data.repository
 
+import de.thnuernberg.bme.geheimzentrale.data.api.DreiFragezeichenApi
 import de.thnuernberg.bme.geheimzentrale.data.local.PlaylistDao
 import de.thnuernberg.bme.geheimzentrale.data.model.*
 import kotlinx.coroutines.flow.Flow
@@ -10,11 +11,11 @@ import javax.inject.Singleton
 
 @Singleton
 class DreiFragezeichenRepository @Inject constructor(
-    private val playlistDao: PlaylistDao
+    private val playlistDao: PlaylistDao,
+    private val api: DreiFragezeichenApi
 ) {
     fun getEpisoden(): Flow<List<Episode>> = flow {
-        // Hier kommt später die API-Implementierung
-        emit(emptyList())
+        emit(api.getEpisoden())
     }
 
     // Playlist Funktionen
@@ -70,6 +71,13 @@ class DreiFragezeichenRepository @Inject constructor(
     fun getListenedEpisodes(): Flow<List<EpisodeStatus>> = playlistDao.getListenedEpisodes()
 
     fun getInProgressEpisodes(): Flow<List<EpisodeStatus>> = playlistDao.getInProgressEpisodes()
+
+    fun getFavoriteEpisodes(): Flow<List<EpisodeStatus>> = playlistDao.getFavoriteEpisodes()
+
+    suspend fun setEpisodeFavorite(episodeId: Int, isFavorite: Boolean) {
+        val status = playlistDao.getEpisodeStatus(episodeId) ?: EpisodeStatus(episodeId = episodeId)
+        playlistDao.updateEpisodeStatus(status.copy(isFavorite = isFavorite))
+    }
 
     fun filterEpisoden(filter: Filter): Flow<List<Episode>> = flow {
         val episoden = getEpisoden().first()

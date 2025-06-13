@@ -52,4 +52,10 @@ interface PlaylistDao {
 
     @Query("UPDATE episode_status SET tags = :tags WHERE episodeId = :episodeId")
     suspend fun updateEpisodeTags(episodeId: Int, tags: String)
-} 
+
+    @Query("SELECT * FROM episode_status WHERE isFavorite = 1")
+    fun getFavoriteEpisodes(): Flow<List<EpisodeStatus>>
+
+    @Query("UPDATE episode_status SET isFavorite = :isFavorite WHERE episodeId = :episodeId")
+    suspend fun updateEpisodeFavorite(episodeId: Int, isFavorite: Boolean)
+}
