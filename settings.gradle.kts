@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Geheimzentrale2"
+rootProject.name = "GeheimzentraleProg"
 include(":app")
  
