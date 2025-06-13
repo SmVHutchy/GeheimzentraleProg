@@ -2,6 +2,8 @@ package de.thnuernberg.bme.geheimzentrale.di
 
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.JsonParseException
+import com.google.gson.JsonSyntaxException
 import de.thnuernberg.bme.geheimzentrale.data.api.DreiFragezeichenApi
 import de.thnuernberg.bme.geheimzentrale.data.model.ApiResponse
 import de.thnuernberg.bme.geheimzentrale.data.model.Episode
@@ -14,14 +16,19 @@ import javax.inject.Singleton
 @Singleton
 class LocalJsonReader @Inject constructor(
     private val context: Context,
-    private val gson: Gson
+    private val gson: Gson,
+    private val assetName: String = "episodes.json"
 ) {
     suspend fun readEpisoden(): List<Episode> = withContext(Dispatchers.IO) {
         try {
-            val jsonString = context.assets.open("episodes.json").bufferedReader().use { it.readText() }
+            val jsonString = context.assets.open(assetName).bufferedReader().use { it.readText() }
             val response: ApiResponse = gson.fromJson(jsonString, ApiResponse::class.java)
             response.serie
         } catch (e: IOException) {
+            emptyList()
+        } catch (e: JsonParseException) {
+            emptyList()
+        } catch (e: JsonSyntaxException) {
             emptyList()
         }
     }

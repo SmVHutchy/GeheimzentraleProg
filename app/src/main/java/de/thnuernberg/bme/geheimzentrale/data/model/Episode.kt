@@ -1,5 +1,6 @@
 package de.thnuernberg.bme.geheimzentrale.data.model
 
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 
 data class DbInfo(
@@ -11,19 +12,21 @@ data class Episode(
     val nummer: Int,
     val titel: String,
     val autor: String,
-    val hörspielskriptautor: String,
+    @SerializedName("h\u00F6rspielskriptautor")
+    val hoerspielskriptautor: String,
     val gesamtbeschreibung: String,
     val beschreibung: String,
-    val veröffentlichungsdatum: String,
+    @SerializedName("ver\u00F6ffentlichungsdatum")
+    val veroeffentlichungsdatum: LocalDate,
     val kapitel: List<Kapitel>,
     val sprechrollen: List<Sprechrolle>,
     val links: Links,
     val ids: Ids,
     val medien: List<Medium>,
-    val erscheinungsdatum: LocalDate,
-    val dauer: Int, // in Sekunden
-    val coverUrl: String,
-    val sprecher: List<String>
+    val erscheinungsdatum: LocalDate? = null,
+    val dauer: Int? = null, // in Sekunden
+    val coverUrl: String? = null,
+    val sprecher: List<String> = emptyList()
 )
 
 data class Kapitel(
