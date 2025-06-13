@@ -29,3 +29,7 @@ Unit tests can be executed with:
 
 Instrumented tests can be started on a connected device with `./gradlew connectedAndroidTest`.
 
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
